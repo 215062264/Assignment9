@@ -1,6 +1,6 @@
 package ac.za.cput.repository;
 
-import ac.za.cput.Domain.LifeOrientation;
+import ac.za.cput.domain.schoolSubjects.LifeOrientation;
 import java.util.Set;
 
 public interface LifeOrientationRepository extends IRepository<LifeOrientation, String> {

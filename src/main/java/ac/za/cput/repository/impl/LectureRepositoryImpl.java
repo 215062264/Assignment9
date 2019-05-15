@@ -1,6 +1,6 @@
 package ac.za.cput.repository.impl;
 
-import ac.za.cput.Domain.Lecture;
+import ac.za.cput.domain.people.Lecture;
 import ac.za.cput.repository.LectureRepository;
 import java.util.HashSet;
 import java.util.Set;
@@ -14,6 +14,13 @@ public class LectureRepositoryImpl implements LectureRepository {
         this.lectures = new HashSet<>();
     }
 
+    private Lecture findS(String professorId) {
+        return this.lectures.stream()
+                .filter(lecture -> lecture.getProfessor().trim().equals(professorId))
+                .findAny()
+                .orElse(null);
+    }
+
     public static LectureRepository getRepository(){
         if(repository == null) repository = new LectureRepositoryImpl();
         return repository;
@@ -24,19 +31,23 @@ public class LectureRepositoryImpl implements LectureRepository {
         return lectures;
     }
 
-    public Lecture read(String subjectCode){
-        //find the student in the set and return it if it exist
-        return null;
+    public Lecture read(final String professorId){
+        Lecture lecture = findS(professorId);
+        return lecture;
     }
 
-    public Lecture update(Lecture lectures) {
-        // find the student, update it and return the updated student
-        return null;
+    public void delete(String professorId) {
+        Lecture lecture = findS(professorId);
+        if (lecture != null) this.lectures.remove(lecture);
     }
 
-    public void delete(String subjectCode) {
-        //find the student and delete it if it exists
-
+    public Lecture update(Lecture lecture){
+        Lecture toDelete = findS(lecture.getProfessor());
+        if(toDelete != null) {
+            this.lectures.remove(toDelete);
+            return create(lecture);
+        }
+        return null;
     }
 
     public Set<Lecture> getAll(){

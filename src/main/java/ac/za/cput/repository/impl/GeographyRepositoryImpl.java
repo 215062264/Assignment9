@@ -1,6 +1,6 @@
 package ac.za.cput.repository.impl;
 
-import ac.za.cput.Domain.Geography;
+import ac.za.cput.domain.schoolSubjects.Geography;
 import ac.za.cput.repository.GeographyRepository;
 import java.util.HashSet;
 import java.util.Set;
@@ -14,6 +14,13 @@ public class GeographyRepositoryImpl implements GeographyRepository {
         this.geographies = new HashSet<>();
     }
 
+    private Geography findGeo(String subjectCode) {
+        return this.geographies.stream()
+                .filter(geography -> geography.getSubjectCode().trim().equals(subjectCode))
+                .findAny()
+                .orElse(null);
+    }
+
     public static GeographyRepository getRepository(){
         if(repository == null) repository = new GeographyRepositoryImpl();
         return repository;
@@ -25,18 +32,22 @@ public class GeographyRepositoryImpl implements GeographyRepository {
     }
 
     public Geography read(String subjectCode){
-        //find the student in the set and return it if it exist
-        return null;
+        Geography english = findGeo(subjectCode);
+        return english;
     }
 
-    public Geography update(Geography geographies) {
-        // find the student, update it and return the updated student
+    public Geography update(Geography geography) {
+        Geography toDelete = findGeo(geography.getSubjectCode());
+        if(toDelete != null) {
+            this.geographies.remove(toDelete);
+            return create(geography);
+        }
         return null;
     }
 
     public void delete(String subjectCode) {
-        //find the student and delete it if it exists
-
+        Geography geography = findGeo(subjectCode);
+        if (geographies != null) this.geographies.remove(geography);
     }
 
     public Set<Geography> getAll(){

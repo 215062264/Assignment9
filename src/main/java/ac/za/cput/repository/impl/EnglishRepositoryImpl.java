@@ -1,6 +1,6 @@
 package ac.za.cput.repository.impl;
 
-import ac.za.cput.Domain.English;
+import ac.za.cput.domain.schoolSubjects.English;
 import ac.za.cput.repository.EnglishRepository;
 import java.util.HashSet;
 import java.util.Set;
@@ -14,6 +14,13 @@ public class EnglishRepositoryImpl implements EnglishRepository{
         this.englishes = new HashSet<>();
     }
 
+    private English findEng(String subjectCode) {
+        return this.englishes.stream()
+                .filter(english -> english.getSubjectCode().trim().equals(subjectCode))
+                .findAny()
+                .orElse(null);
+    }
+
     public static EnglishRepository getRepository(){
         if(repository == null) repository = new EnglishRepositoryImpl();
         return repository;
@@ -25,18 +32,22 @@ public class EnglishRepositoryImpl implements EnglishRepository{
     }
 
     public English read(String subjectCode){
-        //find the student in the set and return it if it exist
-        return null;
+        English english = findEng(subjectCode);
+        return english;
     }
 
-    public English update(English englishes) {
-        // find the student, update it and return the updated student
+    public English update(English english) {
+        English toDelete = findEng(english.getSubjectCode());
+        if(toDelete != null) {
+            this.englishes.remove(toDelete);
+            return create(english);
+        }
         return null;
     }
 
     public void delete(String subjectCode) {
-        //find the student and delete it if it exists
-
+        English english = findEng(subjectCode);
+        if (englishes != null) this.englishes.remove(english);
     }
 
     public Set<English> getAll(){

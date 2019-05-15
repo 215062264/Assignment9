@@ -1,6 +1,6 @@
 package ac.za.cput.repository.impl;
 
-import ac.za.cput.Domain.History;
+import ac.za.cput.domain.schoolSubjects.History;
 import ac.za.cput.repository.HistoryRepository;
 import java.util.HashSet;
 import java.util.Set;
@@ -14,6 +14,13 @@ public class HistoryRepositoryImpl implements HistoryRepository {
         this.histories = new HashSet<>();
     }
 
+    private History findHis(String subjectCode) {
+        return this.histories.stream()
+                .filter(history -> history.getSubjectCode().trim().equals(subjectCode))
+                .findAny()
+                .orElse(null);
+    }
+
     public static HistoryRepository getRepository(){
         if(repository == null) repository = new HistoryRepositoryImpl();
         return repository;
@@ -25,18 +32,22 @@ public class HistoryRepositoryImpl implements HistoryRepository {
     }
 
     public History read(String subjectCode){
-        //find the student in the set and return it if it exist
-        return null;
+        History history = findHis(subjectCode);
+        return history;
     }
 
-    public History update(History histories) {
-        // find the student, update it and return the updated student
+    public History update(History history) {
+        History toDelete = findHis(history.getSubjectCode());
+        if(toDelete != null) {
+            this.histories.remove(toDelete);
+            return create(history);
+        }
         return null;
     }
 
     public void delete(String subjectCode) {
-        //find the student and delete it if it exists
-
+        History history = findHis(subjectCode);
+        if (histories != null) this.histories.remove(history);
     }
 
     public Set<History> getAll(){

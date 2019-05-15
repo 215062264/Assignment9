@@ -1,6 +1,6 @@
 package ac.za.cput.repository;
 
-import ac.za.cput.Domain.Accounting;
+import ac.za.cput.domain.schoolSubjects.Accounting;
 import java.util.Set;
 
 

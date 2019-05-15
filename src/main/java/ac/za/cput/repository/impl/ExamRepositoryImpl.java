@@ -1,6 +1,6 @@
 package ac.za.cput.repository.impl;
 
-import ac.za.cput.Domain.Exam;
+import ac.za.cput.domain.academicResults.Exam;
 import ac.za.cput.repository.ExamRepository;
 import java.util.HashSet;
 import java.util.Set;
@@ -14,6 +14,13 @@ public class ExamRepositoryImpl implements ExamRepository {
         this.exams = new HashSet<>();
     }
 
+    private Exam findE(String studentNum) {
+        return this.exams.stream()
+                .filter(exam -> exam.getStudentNum().trim().equals(studentNum))
+                .findAny()
+                .orElse(null);
+    }
+
     public static ExamRepository getRepository(){
         if(repository == null) repository = new ExamRepositoryImpl();
         return repository;
@@ -24,19 +31,23 @@ public class ExamRepositoryImpl implements ExamRepository {
         return exams;
     }
 
-    public Exam read(String subjectCode){
-        //find the student in the set and return it if it exist
-        return null;
+    public Exam read(final String studentId){
+        Exam exam = findE(studentId);
+        return exam;
     }
 
-    public Exam update(Exam exams) {
-        // find the student, update it and return the updated student
-        return null;
+    public void delete(String studentId) {
+        Exam exam = findE(studentId);
+        if (exam != null) this.exams.remove(exam);
     }
 
-    public void delete(String subjectCode) {
-        //find the student and delete it if it exists
-
+    public Exam update(Exam exam){
+        Exam toDelete = findE(exam.getStudentNum());
+        if(toDelete != null) {
+            this.exams.remove(toDelete);
+            return create(exam);
+        }
+        return null;
     }
 
     public Set<Exam> getAll(){

@@ -1,6 +1,6 @@
 package ac.za.cput.repository.impl;
 
-import ac.za.cput.Domain.CivilEngineering;
+import ac.za.cput.domain.schoolSubjects.CivilEngineering;
 import ac.za.cput.repository.CivilEngineeringRepository;
 import java.util.HashSet;
 import java.util.Set;
@@ -14,6 +14,13 @@ public class CivilEngineeringRepositoryImpl implements CivilEngineeringRepositor
         this.civilEngineerings = new HashSet<>();
     }
 
+    private CivilEngineering findCivil(String subjectCode) {
+        return this.civilEngineerings.stream()
+                .filter(civilEngineering -> civilEngineering.getSubjectCode().trim().equals(subjectCode))
+                .findAny()
+                .orElse(null);
+    }
+
     public static CivilEngineeringRepository getRepository(){
         if(repository == null) repository = new CivilEngineeringRepositoryImpl();
         return repository;
@@ -25,18 +32,22 @@ public class CivilEngineeringRepositoryImpl implements CivilEngineeringRepositor
     }
 
     public CivilEngineering read(String subjectCode){
-        //find the student in the set and return it if it exist
-        return null;
+        CivilEngineering civilEngineerings = findCivil(subjectCode);
+        return civilEngineerings;
     }
 
-    public CivilEngineering update(CivilEngineering civilEngineerings) {
-        // find the student, update it and return the updated student
+    public CivilEngineering update(CivilEngineering civilEngineering) {
+        CivilEngineering toDelete = findCivil(civilEngineering.getSubjectCode());
+        if(toDelete != null) {
+            this.civilEngineerings.remove(toDelete);
+            return create(civilEngineering);
+        }
         return null;
     }
 
     public void delete(String subjectCode) {
-        //find the student and delete it if it exists
-
+        CivilEngineering civilEngineering = findCivil(subjectCode);
+        if (civilEngineerings != null) this.civilEngineerings.remove(civilEngineering);
     }
 
     public Set<CivilEngineering> getAll(){

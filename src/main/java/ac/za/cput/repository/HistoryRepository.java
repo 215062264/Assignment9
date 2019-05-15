@@ -1,6 +1,6 @@
 package ac.za.cput.repository;
 
-import ac.za.cput.Domain.History;
+import ac.za.cput.domain.schoolSubjects.History;
 import java.util.Set;
 
 

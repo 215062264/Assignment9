@@ -1,6 +1,6 @@
 package ac.za.cput.repository.impl;
 
-import ac.za.cput.Domain.Registration;
+import ac.za.cput.domain.schoolSubjects.Registration;
 import ac.za.cput.repository.RegistrationRepository;
 import java.util.HashSet;
 import java.util.Set;
@@ -14,6 +14,13 @@ public class RegistrationRepositoryImpl implements RegistrationRepository {
         this.registrations = new HashSet<>();
     }
 
+    private Registration findP(String regNum) {
+        return this.registrations.stream()
+                .filter(registration -> registration.getRegNum().trim().equals(regNum))
+                .findAny()
+                .orElse(null);
+    }
+
     public static RegistrationRepository getRepository(){
         if(repository == null) repository = new RegistrationRepositoryImpl();
         return repository;
@@ -24,19 +31,23 @@ public class RegistrationRepositoryImpl implements RegistrationRepository {
         return registrations;
     }
 
-    public Registration read(String regNum){
-        //find the student in the set and return it if it exist
+    public Registration read(String subjectCode){
+        Registration registration = findP(subjectCode);
+        return registration;
+    }
+
+    public Registration update(Registration registration) {
+        Registration toDelete = findP(registration.getRegNum());
+        if(toDelete != null) {
+            this.registrations.remove(toDelete);
+            return create(registration);
+        }
         return null;
     }
 
-    public Registration update(Registration registrations) {
-        // find the student, update it and return the updated student
-        return null;
-    }
-
-    public void delete(String regNum) {
-        //find the student and delete it if it exists
-
+    public void delete(String subjectCode) {
+        Registration registration = findP(subjectCode);
+        if (registration != null) this.registrations.remove(registration);
     }
 
     public Set<Registration> getAll(){

@@ -1,6 +1,6 @@
 package ac.za.cput.repository.impl;
 
-import ac.za.cput.Domain.ConsumerStudies;
+import ac.za.cput.domain.schoolSubjects.ConsumerStudies;
 import ac.za.cput.repository.ConsumerStudiesRepository;
 import java.util.HashSet;
 import java.util.Set;
@@ -14,6 +14,13 @@ public class ConsumerStudiesRepositoryImpl implements ConsumerStudiesRepository 
         this.consumerStudies = new HashSet<>();
     }
 
+    private ConsumerStudies findCon(String subjectCode) {
+        return this.consumerStudies.stream()
+                .filter(consumerStudies -> consumerStudies.getSubjectCode().trim().equals(subjectCode))
+                .findAny()
+                .orElse(null);
+    }
+
     public static ConsumerStudiesRepository getRepository(){
         if(repository == null) repository = new ConsumerStudiesRepositoryImpl();
         return repository;
@@ -25,18 +32,22 @@ public class ConsumerStudiesRepositoryImpl implements ConsumerStudiesRepository 
     }
 
     public ConsumerStudies read(String subjectCode){
-        //find the student in the set and return it if it exist
-        return null;
+        ConsumerStudies consumerStudies = findCon(subjectCode);
+        return consumerStudies;
     }
 
     public ConsumerStudies update(ConsumerStudies consumerStudies) {
-        // find the student, update it and return the updated student
+        ConsumerStudies toDelete = findCon(consumerStudies.getSubjectCode());
+        if(toDelete != null) {
+            this.consumerStudies.remove(toDelete);
+            return create(consumerStudies);
+        }
         return null;
     }
 
     public void delete(String subjectCode) {
-        //find the student and delete it if it exists
-
+        ConsumerStudies consumerStudies = findCon(subjectCode);
+        if (consumerStudies != null) this.consumerStudies.remove(consumerStudies);
     }
 
     public Set<ConsumerStudies> getAll(){

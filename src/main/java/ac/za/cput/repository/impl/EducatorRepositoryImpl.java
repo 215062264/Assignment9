@@ -1,6 +1,6 @@
 package ac.za.cput.repository.impl;
 
-import ac.za.cput.Domain.Educator;
+import ac.za.cput.domain.people.Educator;
 import ac.za.cput.repository.EducatorRepository;
 import java.util.HashSet;
 import java.util.Set;
@@ -14,6 +14,13 @@ public class EducatorRepositoryImpl implements EducatorRepository {
         this.educators = new HashSet<>();
     }
 
+    private Educator findEducator(String educatorID) {
+        return this.educators.stream()
+                .filter(educator -> educator.getEducatorId().trim().equals(educatorID))
+                .findAny()
+                .orElse(null);
+    }
+
     public static EducatorRepository getRepository(){
         if(repository == null) repository = new EducatorRepositoryImpl();
         return repository;
@@ -24,19 +31,23 @@ public class EducatorRepositoryImpl implements EducatorRepository {
         return educators;
     }
 
-    public Educator read(String educatorId){
-        //find the student in the set and return it if it exist
-        return null;
+    public Educator read(final String educatorID){
+        Educator educator = findEducator(educatorID);
+        return educator;
     }
 
-    public Educator update(Educator educator) {
-        // find the student, update it and return the updated student
-        return null;
+    public void delete(String studentId) {
+        Educator educator = findEducator(studentId);
+        if (educator != null) this.educators.remove(educator);
     }
 
-    public void delete(String educatorId) {
-        //find the student and delete it if it exists
-
+    public Educator update(Educator educator){
+        Educator toDelete = findEducator(educator.getEducatorId());
+        if(toDelete != null) {
+            this.educators.remove(toDelete);
+            return create(educator);
+        }
+        return null;
     }
 
     public Set<Educator> getAll(){

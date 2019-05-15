@@ -1,6 +1,6 @@
 package ac.za.cput.repository;
 
-import ac.za.cput.Domain.CivilEngineering;
+import ac.za.cput.domain.schoolSubjects.CivilEngineering;
 
 import java.util.Set;
 

@@ -1,6 +1,6 @@
 package ac.za.cput.repository.impl;
 
-import ac.za.cput.Domain.InformationTech;
+import ac.za.cput.domain.schoolSubjects.InformationTech;
 import ac.za.cput.repository.InformationTechRepository;
 import java.util.HashSet;
 import java.util.Set;
@@ -14,6 +14,13 @@ public class InformationTechRepositoryImpl implements InformationTechRepository 
         this.informationTeches = new HashSet<>();
     }
 
+    private InformationTech findHis(String subjectCode) {
+        return this.informationTeches.stream()
+                .filter(informationTech -> informationTech.getSubjectCode().trim().equals(subjectCode))
+                .findAny()
+                .orElse(null);
+    }
+
     public static InformationTechRepositoryImpl getRepository(){
         if(repository == null) repository = new InformationTechRepositoryImpl();
         return repository;
@@ -25,18 +32,22 @@ public class InformationTechRepositoryImpl implements InformationTechRepository 
     }
 
     public InformationTech read(String subjectCode){
-        //find the student in the set and return it if it exist
-        return null;
+        InformationTech history = findHis(subjectCode);
+        return history;
     }
 
-    public InformationTech update(InformationTech informationTeches) {
-        // find the student, update it and return the updated student
+    public InformationTech update(InformationTech informationTech) {
+        InformationTech toDelete = findHis(informationTech.getSubjectCode());
+        if(toDelete != null) {
+            this.informationTeches.remove(toDelete);
+            return create(informationTech);
+        }
         return null;
     }
 
     public void delete(String subjectCode) {
-        //find the student and delete it if it exists
-
+        InformationTech informationTech = findHis(subjectCode);
+        if (informationTeches != null) this.informationTeches.remove(informationTech);
     }
 
     public Set<InformationTech> getAll(){

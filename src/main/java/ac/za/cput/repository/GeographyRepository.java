@@ -1,6 +1,6 @@
 package ac.za.cput.repository;
 
-import ac.za.cput.Domain.Geography;
+import ac.za.cput.domain.schoolSubjects.Geography;
 import java.util.Set;
 
 

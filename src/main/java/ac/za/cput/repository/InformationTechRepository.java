@@ -1,6 +1,6 @@
 package ac.za.cput.repository;
 
-import ac.za.cput.Domain.InformationTech;
+import ac.za.cput.domain.schoolSubjects.InformationTech;
 
 import java.util.Set;
 

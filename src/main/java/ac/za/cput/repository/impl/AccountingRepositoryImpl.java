@@ -1,6 +1,6 @@
 package ac.za.cput.repository.impl;
 
-import ac.za.cput.Domain.Accounting;
+import ac.za.cput.domain.schoolSubjects.Accounting;
 import ac.za.cput.repository.AccountingRepository;
 import java.util.HashSet;
 import java.util.Set;
@@ -14,6 +14,13 @@ public class AccountingRepositoryImpl implements AccountingRepository {
         this.accountings = new HashSet<>();
     }
 
+    private Accounting findAccounting(String subjectCode) {
+        return this.accountings.stream()
+                .filter(accountings -> accountings.getSubjectCode().trim().equals(subjectCode))
+                .findAny()
+                .orElse(null);
+    }
+
     public static AccountingRepository getRepository(){
         if(repository == null) repository = new AccountingRepositoryImpl();
         return repository;
@@ -25,17 +32,22 @@ public class AccountingRepositoryImpl implements AccountingRepository {
     }
 
     public Accounting read(String subjectCode){
-        //find the student in the set and return it if it exist
-        return null;
+        Accounting accountings = findAccounting(subjectCode);
+        return accountings;
     }
 
     public Accounting update(Accounting accountings) {
-        // find the student, update it and return the updated student
+        Accounting toDelete = findAccounting(accountings.getSubjectCode());
+        if(toDelete != null) {
+            this.accountings.remove(toDelete);
+            return create(accountings);
+        }
         return null;
     }
 
     public void delete(String subjectCode) {
-        //find the student and delete it if it exists
+        Accounting accountings = findAccounting(subjectCode);
+        if (accountings != null) this.accountings.remove(accountings);
 
     }
 

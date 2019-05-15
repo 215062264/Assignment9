@@ -1,6 +1,6 @@
 package ac.za.cput.repository.impl;
 
-import ac.za.cput.Domain.TechnicalDrawings;
+import ac.za.cput.domain.schoolSubjects.TechnicalDrawings;
 import ac.za.cput.repository.TechnicalDrawingsRepository;
 import java.util.HashSet;
 import java.util.Set;
@@ -14,6 +14,13 @@ public class TechnicalDrawingsRepositoryImpl implements TechnicalDrawingsReposit
         this.technicalDrawings = new HashSet<>();
     }
 
+    private TechnicalDrawings findP(String subjectCode) {
+        return this.technicalDrawings.stream()
+                .filter(technicalDrawings -> technicalDrawings.getSubjectCode().trim().equals(subjectCode))
+                .findAny()
+                .orElse(null);
+    }
+
     public static TechnicalDrawingsRepository getRepository(){
         if(repository == null) repository = new TechnicalDrawingsRepositoryImpl();
         return repository;
@@ -25,18 +32,22 @@ public class TechnicalDrawingsRepositoryImpl implements TechnicalDrawingsReposit
     }
 
     public TechnicalDrawings read(String subjectCode){
-        //find the student in the set and return it if it exist
-        return null;
+        TechnicalDrawings technicalDrawings = findP(subjectCode);
+        return technicalDrawings;
     }
 
-    public TechnicalDrawings update(TechnicalDrawings mathematics) {
-        // find the student, update it and return the updated student
+    public TechnicalDrawings update(TechnicalDrawings technicalDrawings) {
+        TechnicalDrawings toDelete = findP(technicalDrawings.getSubjectCode());
+        if(toDelete != null) {
+            this.technicalDrawings.remove(toDelete);
+            return create(technicalDrawings);
+        }
         return null;
     }
 
     public void delete(String subjectCode) {
-        //find the student and delete it if it exists
-
+        TechnicalDrawings technicalDrawings = findP(subjectCode);
+        if (technicalDrawings != null) this.technicalDrawings.remove(technicalDrawings);
     }
 
     public Set<TechnicalDrawings> getAll(){

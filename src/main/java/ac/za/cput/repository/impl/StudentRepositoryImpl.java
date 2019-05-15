@@ -1,6 +1,6 @@
 package ac.za.cput.repository.impl;
 
-import ac.za.cput.Domain.Student;
+import ac.za.cput.domain.people.Student;
 import ac.za.cput.repository.StudentRepository;
 import java.util.HashSet;
 import java.util.Set;
@@ -14,6 +14,13 @@ public class StudentRepositoryImpl implements StudentRepository {
             this.students = new HashSet<>();
         }
 
+    private Student findStudent(String studentId) {
+        return this.students.stream()
+                .filter(student -> student.getStudentId().trim().equals(studentId))
+                .findAny()
+                .orElse(null);
+    }
+
         public static StudentRepository getRepository(){
             if(repository == null) repository = new StudentRepositoryImpl();
             return repository;
@@ -24,20 +31,24 @@ public class StudentRepositoryImpl implements StudentRepository {
             return student;
         }
 
-        public Student read(String studentId){
-            //find the student in the set and return it if it exist
-            return null;
-        }
+    public Student read(final String studentId){
+        Student student = findStudent(studentId);
+        return student;
+    }
 
-        public Student update(Student student) {
-            // find the student, update it and return the updated student
-            return null;
-        }
+    public void delete(String studentId) {
+        Student student = findStudent(studentId);
+        if (student != null) this.students.remove(student);
+    }
 
-        public void delete(String studentId) {
-            //find the student and delete it if it exists
-
+    public Student update(Student student){
+        Student toDelete = findStudent(student.getStudentId());
+        if(toDelete != null) {
+            this.students.remove(toDelete);
+            return create(student);
         }
+        return null;
+    }
 
         public Set<Student> getAll(){
             return this.students;

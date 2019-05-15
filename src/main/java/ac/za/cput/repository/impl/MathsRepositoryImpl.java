@@ -1,6 +1,6 @@
 package ac.za.cput.repository.impl;
 
-import ac.za.cput.Domain.Mathematics;
+import ac.za.cput.domain.schoolSubjects.Mathematics;
 import ac.za.cput.repository.MathsRepository;
 import java.util.HashSet;
 import java.util.Set;
@@ -14,6 +14,13 @@ public class MathsRepositoryImpl implements MathsRepository {
         this.mathematics = new HashSet<>();
     }
 
+    private Mathematics findMath(String subjectCode) {
+        return this.mathematics.stream()
+                .filter(mathematics -> mathematics.getSubjectCode().trim().equals(subjectCode))
+                .findAny()
+                .orElse(null);
+    }
+
     public static MathsRepository getRepository(){
         if(repository == null) repository = new MathsRepositoryImpl();
         return repository;
@@ -25,20 +32,22 @@ public class MathsRepositoryImpl implements MathsRepository {
     }
 
     public Mathematics read(String subjectCode){
-        //find the student in the set and return it if it exist
-        return null;
+        Mathematics mathematics = findMath(subjectCode);
+        return mathematics;
     }
 
     public Mathematics update(Mathematics mathematics) {
-        // find the student, update it and return the updated student
+        Mathematics toDelete = findMath(mathematics.getSubjectCode());
+        if(toDelete != null) {
+            this.mathematics.remove(toDelete);
+            return create(mathematics);
+        }
         return null;
     }
 
     public void delete(String subjectCode) {
-        //find the student and delete it if it exists
-        if(mathematics.contains(subjectCode)){
-            mathematics.remove(mathematics);
-        }
+        Mathematics mathematics = findMath(subjectCode);
+        if (mathematics != null) this.mathematics.remove(mathematics);
     }
 
     public Set<Mathematics> getAll(){

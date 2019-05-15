@@ -1,6 +1,6 @@
 package ac.za.cput.repository.impl;
 
-import ac.za.cput.Domain.Results;
+import ac.za.cput.domain.academicResults.Results;
 import ac.za.cput.repository.ResultRepository;
 import java.util.HashSet;
 import java.util.Set;

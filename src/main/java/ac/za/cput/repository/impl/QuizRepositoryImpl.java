@@ -1,6 +1,6 @@
 package ac.za.cput.repository.impl;
 
-import ac.za.cput.Domain.Quiz;
+import ac.za.cput.domain.academicResults.Quiz;
 import ac.za.cput.repository.QuizRepository;
 import java.util.HashSet;
 import java.util.Set;

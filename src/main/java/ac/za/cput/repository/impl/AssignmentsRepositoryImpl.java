@@ -1,6 +1,6 @@
 package ac.za.cput.repository.impl;
 
-import ac.za.cput.Domain.Assignments;
+import ac.za.cput.domain.academicResults.Assignments;
 import ac.za.cput.repository.AssignmentsRepository;
 import java.util.HashSet;
 import java.util.Set;
@@ -14,6 +14,13 @@ public class AssignmentsRepositoryImpl implements AssignmentsRepository {
         this.assignments = new HashSet<>();
     }
 
+    private Assignments findE(String studentNum) {
+        return this.assignments.stream()
+                .filter(assignments -> assignments.getStudentNum().trim().equals(studentNum))
+                .findAny()
+                .orElse(null);
+    }
+
     public static AssignmentsRepository getRepository(){
         if(repository == null) repository = new AssignmentsRepositoryImpl();
         return repository;
@@ -24,19 +31,23 @@ public class AssignmentsRepositoryImpl implements AssignmentsRepository {
         return assignments;
     }
 
-    public Assignments read(String studentNum){
-        //find the student in the set and return it if it exist
-        return null;
+    public Assignments read(final String studentId){
+        Assignments assignments = findE(studentId);
+        return assignments;
     }
 
-    public Assignments update(Assignments assignments) {
-        // find the student, update it and return the updated student
-        return null;
+    public void delete(String studentId) {
+        Assignments assignments = findE(studentId);
+        if (assignments != null) this.assignments.remove(assignments);
     }
 
-    public void delete(String studentNum) {
-        //find the student and delete it if it exists
-
+    public Assignments update(Assignments assignments){
+        Assignments toDelete = findE(assignments.getStudentNum());
+        if(toDelete != null) {
+            this.assignments.remove(toDelete);
+            return create(assignments);
+        }
+        return null;
     }
 
     public Set<Assignments> getAll(){

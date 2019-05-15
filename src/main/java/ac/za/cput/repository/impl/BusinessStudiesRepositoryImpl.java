@@ -1,6 +1,6 @@
 package ac.za.cput.repository.impl;
 
-import ac.za.cput.Domain.BusinessStudies;
+import ac.za.cput.domain.schoolSubjects.BusinessStudies;
 import ac.za.cput.repository.BusinessStudiesRepository;
 import java.util.HashSet;
 import java.util.Set;
@@ -14,6 +14,14 @@ public class BusinessStudiesRepositoryImpl implements BusinessStudiesRepository 
         this.businessStudies = new HashSet<>();
     }
 
+    private BusinessStudies findBusiness(String subjectCode) {
+        return this.businessStudies.stream()
+                .filter(businessStudies -> businessStudies.getSubjectCode().trim().equals(subjectCode))
+                .findAny()
+                .orElse(null);
+    }
+
+
     public static BusinessStudiesRepository getRepository(){
         if(repository == null) repository = new BusinessStudiesRepositoryImpl();
         return repository;
@@ -25,18 +33,22 @@ public class BusinessStudiesRepositoryImpl implements BusinessStudiesRepository 
     }
 
     public BusinessStudies read(String subjectCode){
-        //find the student in the set and return it if it exist
-        return null;
+        BusinessStudies businessStudies = findBusiness(subjectCode);
+        return businessStudies;
     }
 
     public BusinessStudies update(BusinessStudies businessStudies) {
-        // find the student, update it and return the updated student
+        BusinessStudies toDelete = findBusiness(businessStudies.getSubjectCode());
+        if(toDelete != null) {
+            this.businessStudies.remove(toDelete);
+            return create(businessStudies);
+        }
         return null;
     }
 
     public void delete(String subjectCode) {
-        //find the student and delete it if it exists
-
+        BusinessStudies businessStudies = findBusiness(subjectCode);
+        if (businessStudies != null) this.businessStudies.remove(businessStudies);
     }
 
     public Set<BusinessStudies> getAll(){

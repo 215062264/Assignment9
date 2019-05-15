@@ -1,6 +1,6 @@
 package ac.za.cput.repository;
 
-import ac.za.cput.Domain.BusinessStudies;
+import ac.za.cput.domain.schoolSubjects.BusinessStudies;
 import java.util.Set;
 
 

@@ -1,7 +1,7 @@
 package ac.za.cput.repository;
 
 
-import ac.za.cput.Domain.TechnicalDrawings;
+import ac.za.cput.domain.schoolSubjects.TechnicalDrawings;
 import java.util.Set;
 
 

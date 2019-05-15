@@ -1,6 +1,6 @@
 package ac.za.cput.repository.impl;
 
-import ac.za.cput.Domain.Science;
+import ac.za.cput.domain.schoolSubjects.Science;
 import ac.za.cput.repository.ScienceRepository;
 import java.util.HashSet;
 import java.util.Set;
@@ -14,6 +14,13 @@ public class ScienceRepositoryImpl implements ScienceRepository {
         this.sciences = new HashSet<>();
     }
 
+    private Science findP(String subjectCode) {
+        return this.sciences.stream()
+                .filter(science -> science.getSubjectCode().trim().equals(subjectCode))
+                .findAny()
+                .orElse(null);
+    }
+
     public static ScienceRepository getRepository(){
         if(repository == null) repository = new ScienceRepositoryImpl();
         return repository;
@@ -25,18 +32,22 @@ public class ScienceRepositoryImpl implements ScienceRepository {
     }
 
     public Science read(String subjectCode){
-        //find the student in the set and return it if it exist
-        return null;
+        Science science = findP(subjectCode);
+        return science;
     }
 
     public Science update(Science science) {
-        // find the student, update it and return the updated student
+        Science toDelete = findP(science.getSubjectCode());
+        if(toDelete != null) {
+            this.sciences.remove(toDelete);
+            return create(science);
+        }
         return null;
     }
 
     public void delete(String subjectCode) {
-        //find the student and delete it if it exists
-
+        Science science = findP(subjectCode);
+        if (science != null) this.sciences.remove(science);
     }
 
     public Set<Science> getAll(){

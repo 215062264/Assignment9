@@ -1,6 +1,6 @@
 package ac.za.cput.repository.impl;
 
-import ac.za.cput.Domain.Course;
+import ac.za.cput.domain.schoolSubjects.Course;
 import ac.za.cput.repository.CourseRepository;
 
 import java.util.HashSet;
@@ -15,29 +15,42 @@ public class CourseRepositoryImpl implements CourseRepository {
         this.courses = new HashSet<>();
     }
 
+
+    private Course findCourse(String courseId) {
+        return this.courses.stream()
+                .filter(courses -> courses.getCourseId().trim().equals(courseId))
+                .findAny()
+                .orElse(null);
+    }
+
+
     public static CourseRepositoryImpl getRepository(){
         if (repository == null) repository = new CourseRepositoryImpl();
         return repository;
     }
-
 
     public Course create(Course course){
         this.courses.add(course);
         return course;
     }
 
-    public Course read(String courseId){
-        // find the course that matches the id and return it if exist
-        return null;
+    public Course read(final String courseId){
+        Course courses = findCourse(courseId);
+        return courses;
     }
 
     public void delete(String courseId) {
-        // find the course, delete it if it exist
+        Course courses = findCourse(courseId);
+        if (courses != null) this.courses.remove(courses);
     }
 
     public Course update(Course course){
-        // find the course, update it and delete it if it exists
-        return course;
+        Course toDelete = findCourse(course.getCourseId());
+        if(toDelete != null) {
+            this.courses.remove(toDelete);
+            return create(course);
+        }
+        return null;
     }
 
 
