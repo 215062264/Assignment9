@@ -4,9 +4,10 @@ import ac.za.cput.domain.schoolSubjects.Mathematics;
 import ac.za.cput.repository.MathsRepository;
 import ac.za.cput.repository.impl.MathsRepositoryImpl;
 import ac.za.cput.service.MathematicsService;
+import org.springframework.stereotype.Service;
 
 import java.util.Set;
-
+@Service
 public class MathematicsServiceImpl implements MathematicsService {
 
     private MathematicsServiceImpl service = null;

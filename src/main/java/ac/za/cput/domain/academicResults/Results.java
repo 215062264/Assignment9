@@ -1,5 +1,7 @@
 package ac.za.cput.domain.academicResults;
 
+import java.util.Objects;
+
 public class Results {
 
     private String studentNum;
@@ -36,7 +38,11 @@ public class Results {
             return this;
         }
 
-
+        public Builder copy(Results results){
+            this.studentNum = results.studentNum;
+            this.mark = results.mark;
+            return this;
+        }
 
         public Results build() {
             return new Results(this);
@@ -50,6 +56,19 @@ public class Results {
                 ", studentNum='" + studentNum + '\'' +
                 ", Mark='" + mark + '\'' +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Results results = (Results) o;
+        return studentNum.equals(results.studentNum);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(studentNum);
     }
 
 }

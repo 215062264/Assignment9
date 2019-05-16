@@ -15,6 +15,13 @@ public class QuizRepositoryImpl implements QuizRepository {
         this.quizzes = new HashSet<>();
     }
 
+    private Quiz findE(String studentNum) {
+        return this.quizzes.stream()
+                .filter(quiz -> quiz.getStudentNum().trim().equals(studentNum))
+                .findAny()
+                .orElse(null);
+    }
+
     public static QuizRepository getRepository(){
         if(repository == null) repository = new QuizRepositoryImpl();
         return repository;
@@ -25,19 +32,23 @@ public class QuizRepositoryImpl implements QuizRepository {
         return quizzes;
     }
 
-    public Quiz read(String studentNum){
-        //find the student in the set and return it if it exist
-        return null;
+    public Quiz read(final String studentId){
+        Quiz quiz = findE(studentId);
+        return quiz;
     }
 
-    public Quiz update(Quiz quizzes) {
-        // find the student, update it and return the updated student
-        return null;
+    public void delete(String studentId) {
+        Quiz quiz = findE(studentId);
+        if (quiz != null) this.quizzes.remove(quiz);
     }
 
-    public void delete(String studentNum) {
-        //find the student and delete it if it exists
-
+    public Quiz update(Quiz quiz){
+        Quiz toDelete = findE(quiz.getStudentNum());
+        if(toDelete != null) {
+            this.quizzes.remove(toDelete);
+            return create(quiz);
+        }
+        return null;
     }
 
     public Set<Quiz> getAll(){

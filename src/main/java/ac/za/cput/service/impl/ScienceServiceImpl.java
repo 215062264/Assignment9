@@ -4,9 +4,10 @@ import ac.za.cput.domain.schoolSubjects.Science;
 import ac.za.cput.repository.ScienceRepository;
 import ac.za.cput.repository.impl.ScienceRepositoryImpl;
 import ac.za.cput.service.ScienceService;
+import org.springframework.stereotype.Service;
 
 import java.util.Set;
-
+@Service
 public class ScienceServiceImpl implements ScienceService {
 
     private ScienceServiceImpl service = null;

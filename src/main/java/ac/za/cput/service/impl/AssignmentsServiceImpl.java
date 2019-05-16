@@ -4,9 +4,10 @@ import ac.za.cput.domain.academicResults.Assignments;
 import ac.za.cput.repository.AssignmentsRepository;
 import ac.za.cput.repository.impl.AssignmentsRepositoryImpl;
 import ac.za.cput.service.AssignmentsService;
+import org.springframework.stereotype.Service;
 
 import java.util.Set;
-
+@Service
 public class AssignmentsServiceImpl implements AssignmentsService {
 
     private AssignmentsServiceImpl service = null;

@@ -4,9 +4,10 @@ import ac.za.cput.domain.schoolSubjects.Accounting;
 import ac.za.cput.repository.AccountingRepository;
 import ac.za.cput.repository.impl.AccountingRepositoryImpl;
 import ac.za.cput.service.AccountingService;
+import org.springframework.stereotype.Service;
 
 import java.util.Set;
-
+@Service
 public class AccountingServiceImpl implements AccountingService {
 
     private AccountingServiceImpl service = null;

@@ -4,9 +4,10 @@ import ac.za.cput.domain.schoolSubjects.LifeOrientation;
 import ac.za.cput.repository.LifeOrientationRepository;
 import ac.za.cput.repository.impl.LifeOrientationRepositoryImpl;
 import ac.za.cput.service.LifeOrientationService;
+import org.springframework.stereotype.Service;
 
 import java.util.Set;
-
+@Service
 public class LifeOrientationServiceImpl implements LifeOrientationService {
 
     private LifeOrientationServiceImpl service = null;

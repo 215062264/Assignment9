@@ -4,8 +4,10 @@ import ac.za.cput.domain.schoolSubjects.History;
 import ac.za.cput.repository.HistoryRepository;
 import ac.za.cput.repository.impl.HistoryRepositoryImpl;
 import ac.za.cput.service.HistoryService;
-import java.util.Set;
+import org.springframework.stereotype.Service;
 
+import java.util.Set;
+@Service
 public class HistoryServiceImpl implements HistoryService {
 
     private HistoryServiceImpl service = null;

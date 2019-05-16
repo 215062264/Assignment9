@@ -4,9 +4,10 @@ import ac.za.cput.domain.schoolSubjects.BusinessStudies;
 import ac.za.cput.repository.BusinessStudiesRepository;
 import ac.za.cput.repository.impl.BusinessStudiesRepositoryImpl;
 import ac.za.cput.service.BusinessStudiesService;
+import org.springframework.stereotype.Service;
 
 import java.util.Set;
-
+@Service
 public class BusinessStudiesServiceImpl implements BusinessStudiesService {
 
     private BusinessStudiesServiceImpl service = null;

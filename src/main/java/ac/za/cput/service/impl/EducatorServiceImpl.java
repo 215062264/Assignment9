@@ -4,9 +4,10 @@ import ac.za.cput.domain.people.Educator;
 import ac.za.cput.repository.EducatorRepository;
 import ac.za.cput.repository.impl.EducatorRepositoryImpl;
 import ac.za.cput.service.EducatorService;
+import org.springframework.stereotype.Service;
 
 import java.util.Set;
-
+@Service
 public class EducatorServiceImpl implements EducatorService {
 
     private EducatorServiceImpl service = null;

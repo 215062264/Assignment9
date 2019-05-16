@@ -4,9 +4,10 @@ import ac.za.cput.domain.academicResults.Exam;
 import ac.za.cput.repository.ExamRepository;
 import ac.za.cput.repository.impl.ExamRepositoryImpl;
 import ac.za.cput.service.ExamService;
+import org.springframework.stereotype.Service;
 
 import java.util.Set;
-
+@Service
 public class ExamServiceImpl implements ExamService {
 
     private ExamServiceImpl service = null;
@@ -44,7 +45,7 @@ public class ExamServiceImpl implements ExamService {
 
     @Override
     public Set<Exam> getAllA() {
-        Set<Exam> assignments = getAll();
+        Set<Exam> exams = getAll();
 
         return null;
     }

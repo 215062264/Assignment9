@@ -14,6 +14,13 @@ public class ResultRepositoryImpl implements ResultRepository {
         this.results = new HashSet<>();
     }
 
+    private Results findE(String studentNum) {
+        return this.results.stream()
+                .filter(results -> results.getStudentNum().trim().equals(studentNum))
+                .findAny()
+                .orElse(null);
+    }
+
     public static ResultRepository getRepository(){
         if(repository == null) repository = new ResultRepositoryImpl();
         return repository;
@@ -24,19 +31,23 @@ public class ResultRepositoryImpl implements ResultRepository {
         return results;
     }
 
-    public Results read(String studentNum){
-        //find the student in the set and return it if it exist
-        return null;
+    public Results read(final String studentId){
+        Results results = findE(studentId);
+        return results;
     }
 
-    public Results update(Results results) {
-        // find the student, update it and return the updated student
-        return null;
+    public void delete(String studentId) {
+        Results results = findE(studentId);
+        if (results != null) this.results.remove(results);
     }
 
-    public void delete(String studentNum) {
-        //find the student and delete it if it exists
-
+    public Results update(Results results){
+        Results toDelete = findE(results.getStudentNum());
+        if(toDelete != null) {
+            this.results.remove(toDelete);
+            return create(results);
+        }
+        return null;
     }
 
     public Set<Results> getAll(){

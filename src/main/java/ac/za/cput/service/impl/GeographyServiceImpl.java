@@ -4,9 +4,10 @@ import ac.za.cput.domain.schoolSubjects.Geography;
 import ac.za.cput.repository.GeographyRepository;
 import ac.za.cput.repository.impl.GeographyRepositoryImpl;
 import ac.za.cput.service.GeographyService;
+import org.springframework.stereotype.Service;
 
 import java.util.Set;
-
+@Service
 public class GeographyServiceImpl implements GeographyService {
 
     private GeographyServiceImpl service = null;

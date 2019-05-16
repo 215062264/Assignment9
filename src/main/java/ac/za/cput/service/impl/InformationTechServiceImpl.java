@@ -4,9 +4,10 @@ import ac.za.cput.domain.schoolSubjects.InformationTech;
 import ac.za.cput.repository.InformationTechRepository;
 import ac.za.cput.repository.impl.InformationTechRepositoryImpl;
 import ac.za.cput.service.InformationTechService;
+import org.springframework.stereotype.Service;
 
 import java.util.Set;
-
+@Service
 public class InformationTechServiceImpl implements InformationTechService {
 
     private InformationTechServiceImpl service = null;

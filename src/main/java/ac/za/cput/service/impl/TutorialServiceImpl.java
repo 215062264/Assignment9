@@ -4,9 +4,10 @@ import ac.za.cput.domain.people.Tutorial;
 import ac.za.cput.repository.TutorialRepository;
 import ac.za.cput.repository.impl.TutorialRepositoryImpl;
 import ac.za.cput.service.TutorialService;
+import org.springframework.stereotype.Service;
 
 import java.util.Set;
-
+@Service
 public class TutorialServiceImpl implements TutorialService {
 
     private TutorialServiceImpl service = null;

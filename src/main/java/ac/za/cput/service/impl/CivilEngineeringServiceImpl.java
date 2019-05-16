@@ -5,9 +5,10 @@ import ac.za.cput.domain.schoolSubjects.CivilEngineering;
 import ac.za.cput.repository.CivilEngineeringRepository;
 import ac.za.cput.repository.impl.CivilEngineeringRepositoryImpl;
 import ac.za.cput.service.CivilEngineeringService;
+import org.springframework.stereotype.Service;
 
 import java.util.Set;
-
+@Service
 public class CivilEngineeringServiceImpl implements CivilEngineeringService {
 
     private CivilEngineeringServiceImpl service = null;

@@ -4,8 +4,10 @@ import ac.za.cput.domain.people.Student;
 import ac.za.cput.repository.StudentRepository;
 import ac.za.cput.repository.impl.StudentRepositoryImpl;
 import ac.za.cput.service.StudentService;
-import java.util.Set;
+import org.springframework.stereotype.Service;
 
+import java.util.Set;
+@Service
 public class StudentServiceImpl implements StudentService {
 
     private StudentServiceImpl service = null;

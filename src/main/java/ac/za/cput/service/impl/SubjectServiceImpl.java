@@ -4,9 +4,10 @@ import ac.za.cput.domain.schoolSubjects.Subject;
 import ac.za.cput.repository.SubjectRepository;
 import ac.za.cput.repository.impl.SubjectRepositoryImpl;
 import ac.za.cput.service.SubjectService;
+import org.springframework.stereotype.Service;
 
 import java.util.Set;
-
+@Service
 public class SubjectServiceImpl implements SubjectService {
 
     private SubjectServiceImpl service = null;

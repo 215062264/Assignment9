@@ -4,9 +4,10 @@ import ac.za.cput.domain.schoolSubjects.TechnicalDrawings;
 import ac.za.cput.repository.TechnicalDrawingsRepository;
 import ac.za.cput.repository.impl.TechnicalDrawingsRepositoryImpl;
 import ac.za.cput.service.TechnicalDrawingsService;
+import org.springframework.stereotype.Service;
 
 import java.util.Set;
-
+@Service
 public class TechnicalDrawingsServiceImpl implements TechnicalDrawingsService {
 
     private TechnicalDrawingsServiceImpl service = null;

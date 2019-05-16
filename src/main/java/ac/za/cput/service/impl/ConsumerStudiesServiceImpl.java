@@ -4,9 +4,10 @@ import ac.za.cput.domain.schoolSubjects.ConsumerStudies;
 import ac.za.cput.repository.ConsumerStudiesRepository;
 import ac.za.cput.repository.impl.ConsumerStudiesRepositoryImpl;
 import ac.za.cput.service.ConsumerStudiesService;
+import org.springframework.stereotype.Service;
 
 import java.util.Set;
-
+@Service
 public class ConsumerStudiesServiceImpl implements ConsumerStudiesService {
 
     private ConsumerStudiesServiceImpl service = null;

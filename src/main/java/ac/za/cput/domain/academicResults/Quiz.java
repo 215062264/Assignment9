@@ -1,5 +1,7 @@
 package ac.za.cput.domain.academicResults;
 
+import java.util.Objects;
+
 public class Quiz {
 
     private String dueDate, studentNum;
@@ -46,7 +48,11 @@ public class Quiz {
             return this;
         }
 
-
+        public Builder copy(Quiz quiz){
+            this.studentNum = quiz.studentNum;
+            this.mark = quiz.mark;
+            return this;
+        }
 
         public Quiz build() {
             return new Quiz(this);
@@ -61,6 +67,19 @@ public class Quiz {
                 ", studentNum='" + studentNum + '\'' +
                 ", Mark='" + mark + '\'' +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Quiz quiz = (Quiz) o;
+        return studentNum.equals(quiz.studentNum);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(studentNum);
     }
 
 }

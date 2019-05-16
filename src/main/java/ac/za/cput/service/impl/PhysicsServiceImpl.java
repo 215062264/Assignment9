@@ -4,9 +4,10 @@ import ac.za.cput.domain.schoolSubjects.Physics;
 import ac.za.cput.repository.PhysicsRepository;
 import ac.za.cput.repository.impl.PhysicsRepositoryImpl;
 import ac.za.cput.service.PhysicsService;
+import org.springframework.stereotype.Service;
 
 import java.util.Set;
-
+@Service
 public class PhysicsServiceImpl implements PhysicsService {
 
     private PhysicsServiceImpl service = null;

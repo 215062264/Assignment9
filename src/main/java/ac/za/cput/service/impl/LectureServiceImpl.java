@@ -4,9 +4,10 @@ import ac.za.cput.domain.people.Lecture;
 import ac.za.cput.repository.LectureRepository;
 import ac.za.cput.repository.impl.LectureRepositoryImpl;
 import ac.za.cput.service.LectureService;
+import org.springframework.stereotype.Service;
 
 import java.util.Set;
-
+@Service
 public class LectureServiceImpl implements LectureService {
 
     private LectureServiceImpl service = null;

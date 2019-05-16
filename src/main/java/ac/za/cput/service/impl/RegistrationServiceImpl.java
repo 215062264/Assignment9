@@ -4,9 +4,10 @@ import ac.za.cput.domain.schoolSubjects.Registration;
 import ac.za.cput.repository.RegistrationRepository;
 import ac.za.cput.repository.impl.RegistrationRepositoryImpl;
 import ac.za.cput.service.RegistrationService;
+import org.springframework.stereotype.Service;
 
 import java.util.Set;
-
+@Service
 public class RegistrationServiceImpl implements RegistrationService {
 
     private RegistrationServiceImpl service = null;

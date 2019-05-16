@@ -4,9 +4,10 @@ import ac.za.cput.domain.schoolSubjects.Economics;
 import ac.za.cput.repository.EconomicsRepository;
 import ac.za.cput.repository.impl.EconomicsRepositoryImpl;
 import ac.za.cput.service.EconomicsService;
+import org.springframework.stereotype.Service;
 
 import java.util.Set;
-
+@Service
 public class EconomicsServiceImpl implements EconomicsService {
 
     private EconomicsServiceImpl service = null;
