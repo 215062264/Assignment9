@@ -1,8 +1,10 @@
 package ac.za.cput.domain.people;
 
 
-import java.util.Objects;
+import org.springframework.boot.autoconfigure.domain.EntityScan;
 
+import java.util.Objects;
+@EntityScan
 public class Educator {
 
     private String educatorId, educatorFirstName, educatorLastName;

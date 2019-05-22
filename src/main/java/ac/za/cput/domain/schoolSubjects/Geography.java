@@ -1,7 +1,9 @@
 package ac.za.cput.domain.schoolSubjects;
 
-import java.util.Objects;
+import org.springframework.boot.autoconfigure.domain.EntityScan;
 
+import java.util.Objects;
+@EntityScan
 public class Geography {
 
     private String subjectCode;

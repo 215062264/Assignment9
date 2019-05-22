@@ -2,57 +2,48 @@ package ac.za.cput.repository.impl;
 
 import ac.za.cput.domain.people.Student;
 import ac.za.cput.repository.StudentRepository;
-import java.util.HashSet;
-import java.util.Set;
+import org.springframework.stereotype.Repository;
+import java.util.*;
 
+@Repository("studentRepository")
 public class StudentRepositoryImpl implements StudentRepository {
 
-        private static StudentRepositoryImpl repository = null;
-        private Set<Student> students;
+    private static StudentRepositoryImpl repository = null;
+    private Map<String, Student> students;
 
-        private StudentRepositoryImpl() {
-            this.students = new HashSet<>();
-        }
-
-    private Student findStudent(String studentId) {
-        return this.students.stream()
-                .filter(student -> student.getStudentId().trim().equals(studentId))
-                .findAny()
-                .orElse(null);
+    private StudentRepositoryImpl() {
+        this.students = new HashMap<>();
     }
 
-        public static StudentRepository getRepository(){
-            if(repository == null) repository = new StudentRepositoryImpl();
-            return repository;
-        }
+    public static StudentRepository getRepository(){
+        if(repository == null) repository = new StudentRepositoryImpl();
+        return repository;
+    }
 
-        public Student create(Student student){
-            this.students.add(student);
-            return student;
-        }
-
-    public Student read(final String studentId){
-        Student student = findStudent(studentId);
+    public Student create(Student student){
+        this.students.put(student.getStudentId(),student);
         return student;
     }
 
+    public Student read(String studentId){
+        return this.students.get(studentId);
+    }
+
+    public Student update(Student student) {
+        this.students.replace(student.getStudentId(),student);
+        return this.students.get(student.getStudentId());
+    }
+
     public void delete(String studentId) {
-        Student student = findStudent(studentId);
-        if (student != null) this.students.remove(student);
+        this.students.remove(studentId);
     }
 
-    public Student update(Student student){
-        Student toDelete = findStudent(student.getStudentId());
-        if(toDelete != null) {
-            this.students.remove(toDelete);
-            return create(student);
-        }
-        return null;
+    public Set<Student> getAll(){
+        Collection<Student> students = this.students.values();
+        Set<Student> set = new HashSet<>();
+        set.addAll(students);
+        return set;
     }
-
-        public Set<Student> getAll(){
-            return this.students;
-        }
 }
 
 

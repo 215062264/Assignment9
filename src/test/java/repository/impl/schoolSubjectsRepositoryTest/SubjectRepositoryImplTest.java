@@ -25,7 +25,7 @@ public class SubjectRepositoryImplTest {
     @Before
     public void setUp() throws Exception {
         this.repository = SubjectRepositoryImpl.getRepository();
-        this.subject = SubjectFactory.getSubjectID("App Dev");
+        this.subject = SubjectFactory.getSubjectID("LearnerManagementSystem Dev");
     }
 
     @Test

@@ -1,7 +1,9 @@
 package ac.za.cput.domain.people;
 
-import java.util.Objects;
+import org.springframework.boot.autoconfigure.domain.EntityScan;
 
+import java.util.Objects;
+@EntityScan
 public class Student {
 
     private String studentId, studentFirstName, studentLastName;
@@ -57,9 +59,12 @@ public class Student {
             return this;
         }
 
-        public Builder copy(Student student){
+        public Builder copy(Student student) {
             this.studentId = student.studentId;
             this.studentFirstName = student.studentFirstName;
+            this.studentLastName = student.studentLastName;
+            this.age = student.age;
+
             return this;
         }
 
